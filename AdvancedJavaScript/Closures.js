@@ -258,7 +258,7 @@ function x(){
 
 
    --------------------------------------------------------------------------------------------------------------------------------
-   */
+   
 function x(){
    let a = 10;
    function y(){
@@ -279,4 +279,142 @@ function x(){
    beacuse closures store reference of variable not the value so when y has return reference of a will be stored in closure
    and after y() function a=50; thats why output =50
 
-   */
+   
+   function y(){
+      setTimeout(() => console.log(a), 1000);
+      console.log('Done Coding')
+   }
+   y();
+
+   /*
+   Output will be 
+   done coding
+   Reference error: a is not defined (after 1 second due to setTimeout timer)
+
+   
+--------------------------------------------------------------------------------------------------------------------------------
+   
+function y(){
+
+
+
+   setTimeout(() => console.log(a), 0)
+   
+   console.log('Done Coding')
+   
+   
+   
+   }
+   
+   y();
+/*
+   Output will be 
+   done coding
+   Reference error: a is not defined (after 10 milliecond due to setTimeout timer)
+
+   
+--------------------------------------------------------------------------------------------------------------------------------
+   
+
+   //Print 1 in 1sec,2 in 2sec,3 in 3sec till 5
+
+function y(){
+   for(var i=1;i<6;i++){
+   setTimeout(() => console.log(i), i * 1000);
+}
+console.log('Done Coding');
+}
+y();
+
+/*
+Output will be
+Done coding 
+6
+6
+6
+6
+6
+
+here this because clousre is storing reference to i variable  
+and JS will not wait till setimeout timer to expire so it will run the loop first so timer gets expired i will be change to new value
+and after 5 iteration i value will change to 6 thats why we have got this output
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+//fixing above code is to use let instead of var  
+/*
+we know let has block scope so whenever loops run it will create new copy of i variable and each time setTimeout will run i will have new value
+
+so in simple term we can say that each and every time this function  is called it is refering to different memory location which has store individual i value(separate copy of
+   i variable ) which were in their scope.
+
+
+function z(){
+   for(let i=1;i<6;i++){
+   setTimeout(() => console.log(i), i * 1000);
+}
+console.log('Done Coding');
+}
+z();
+
+/*
+output will be
+Done coding
+1
+2
+3
+4
+5
+
+*/
+
+/*
+how to do it using var only
+
+
+
+function z(){
+
+   for(var i=1;i<6;i++){
+      function close(k){
+         setTimeout(() => console.log(k), k * 1000);
+      }
+  close(i);
+}
+console.log('Done Coding');
+}
+z();
+
+/*
+Here we have create closure  after for loop it will work 
+because every time we call this close function after every iteration it will create new environment with individual i value ( it will create new copy of i for itself)
+
+*/
+
+
+/*
+
+question is to create a function fun which takes an array and when its call the fn 1st time 
+it should print hello ram
+2nd time it should print hello shyam
+const fun = (arr)=>{
+
+}
+const name = fun(["Ram","Shyam"]);
+name(); //hello ram
+name();//hello shyam
+*/
+
+function print(arr){
+   var count=0;
+   return function(){
+      console.log('hello'+arr[count]);
+      count++;
+   }
+}
+const name1=print(['ram','shyam']);
+name1();
+name1();
+
+
