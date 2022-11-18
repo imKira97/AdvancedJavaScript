@@ -48,13 +48,49 @@ noPass(3,4);//here we have just pass this with no arguments hence whatever we ha
 
 /*
 This how we doing function currying  using bind() we make a copy of multiply method and create more methods out of it by pre setting some arguments inside the function
-*/
+
 
 
 //Currying using closure
 
 //here this fuction  mulitply is returning a function y we know function can maintain their lexical scope hence y will know x variable even after  it execution gets over
 //we have preset the x variable
+let multiply =function(x){
+    return function(y){
+        console.log(x*y);
+    }
+}
+let multiplyByTwo = multiply(2);
+multiplyByTwo(5);
+
+let multiplyByThree=multiply(3);
+multiplyByThree(10);
+
+
+*/
+
+//currying example
+
+function addConstantValue(constant){
+    
+return(value1)=>{
+    return(value2)=>
+        value1+constant+value2;
+    
+}
+}
+//console.log(addConstantValue(10)(5));
+
+const addSeven=addConstantValue(7);
+console.log(addSeven(10));  
+//it will return a function body because above line will return a function only so if we want to print it we have to pass another argument in the above line.
+console.log(addSeven(10)(3)); 
+
+//or 
+console.log(addConstantValue(10)(5)(20));
+
+
+
 let multiply =function(x){
     return function(y){
         console.log(x*y);
