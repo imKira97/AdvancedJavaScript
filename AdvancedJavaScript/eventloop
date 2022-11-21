@@ -1,0 +1,52 @@
+JavaScript is a synchronous single-threaded language
+It has 1 call stack and it can only do 1 thing at a time. This call Stack is present inside the JS engine and all the code of js is executed in the call stack.
+
+
+q1)
+
+
+GEC start executing code from 1st line of code
+when it encounters the callback function this callback function is registered into webAPIs environment 
+till timer gets expired it will stay there once timer is expired it will move to callback queue 
+and event loop will check if there is any function needs to be pushed into call stack from callback queue and microtask queue once it find there exist a function
+than event loop will push that it call stack  and than call stack execute this function .
+
+In browser we have JS Engine(which contain call stack) , web APIS ,event loop and callback queue
+
+call back function  goes into callstack by callback queue and event loop.
+callback function goes into callback queue after timer is expired.
+and event loop acts as a gatekeeper between call back queue and call stack.
+
+so eventloop will check in callback queue,microtask queue and when its find callback function there than it push it into call stack and the call stack execute this call back 
+function(by creating it execution context)
+
+
+
+queue is of firstIn FirstOut type of DS
+we know there might be multiple events or timers present in our code or user might click multiple times than same btn
+hence we need to maintain an order so that our events also gets executed in the correct order hence we need this callback queue
+
+
+microtask queue-it same as call back queue but it have higher priority whatever function comes inside microtask queue will be executed first and than of callback queue.
+all the call back function which comes from promises will go inside the microtask queue
+and there is something known as mutation observer it checks whether there is mutation in the DOM tree or not. if exists it executed some callback function this is also stores in 
+microtask queue.
+
+
+fetch()-goes and requests an API call and returns a promise and we have to pass an callback function which will be executed once this promise is resolved
+//promise means when fetch gets the data from requested API call than it will execute the callback function
+
+starvation of the callback queue- suppose there is cb function in microtask queue which again agian creates a callback function in microtask queue  so till its get execute compeletely
+function in callback queue has to wait for its execution.
+
+
+
+Asynchronous- callback and promises
+
+Event loop with synchronous event- suppose there is multiple events in our code and we know JS is synchronous hence we it execute this event 1 after another or in order
+here we have event queue which stores the events click by the user in order to execute tham in the same order as the user want
+(queue is first in first out manner) and there is event loop which checks which event needs to performs now in add this into callstack  and remove that event from queue
+hence till queue gets empty eventLoop will pushed the event in same order in the callstack to execute the event.
+when a single thread picks up an event which call another function and it calls another there single thread follows that stack of functions call until the first function
+completes it executing this kind of nested functions call is managed by call stack. 
+
